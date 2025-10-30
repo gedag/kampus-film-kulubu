@@ -1,0 +1,62 @@
+/* components/TVCard.css */
+.tv-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: #fff;
+}
+
+.tv-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  min-height: 200px; /* Görsel olmayanlar için alan */
+  background-color: #eee;
+}
+
+.tv-card-content {
+  padding: 15px;
+}
+
+.tv-card-content h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.tv-card-content p {
+  font-size: 0.9em;
+  margin: 5px 0;
+  color: #555;
+}
+
+.card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.card-buttons button,
+.card-buttons a button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.card-buttons a button {
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  box-sizing: border-box; /* padding'in genişliği etkilememesi için */
+  text-align: center;
+}
+
+.card-buttons .add-btn {
+  background-color: #28a745;
+  color: white;
+}
