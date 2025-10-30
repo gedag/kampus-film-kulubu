@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react'; // 1. Hata düzeltildi: Import birleştirildi
 import axios from 'axios';
 import { useAppContext } from '../context/AppContext.jsx';
 
@@ -11,7 +11,27 @@ const Home = () => {
   const { state, dispatch } = useAppContext();
   const { query } = state;
 
+  // *** VERCEL 504 HATASI DÜZELTMESİ (BAŞLANGIÇ) ***
+  // Bu state, kodun sunucuda değil, tarayıcıda çalıştığından emin olmak için
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
+    // Bileşen tarayıcıya yüklendiğinde (mount olduğunda) bu state'i 'true' yap
+    setIsClient(true);
+  }, []);
+  // *** VERCEL 504 HATASI DÜZELTMESİ (BİTİŞ) ***
+
+
+  // Veri çeken ana useEffect
+  useEffect(() => {
+    
+    // *** VERCEL DÜZELTMESİ ***
+    // Eğer kod henüz tarayıcıda değilse (isClient false ise),
+    // API isteğini çalıştırma, hemen çık.
+    if (!isClient) {
+      return; 
+    }
+
     const fetchShows = async () => {
       dispatch({ type: 'FETCH_INIT' }); 
       try {
@@ -27,12 +47,13 @@ const Home = () => {
     } else {
        dispatch({ type: 'FETCH_SUCCESS', payload: [] });
     }
-  }, [query, dispatch]); 
+
+  }, [query, dispatch, isClient]); // <-- 'isClient' bağımlılıklara eklendi
 
   return (
     // Tüm inline stiller kaldırıldı, className'ler eklendi
     <div className="home-page">
-
+      
       <header className="home-header">
         <h1>Kampüs Film Kulübü</h1>
         <div className="controls-container">
@@ -40,12 +61,12 @@ const Home = () => {
           <Filters /> 
         </div>
       </header>
-
+      
       <div className="main-content">
         <div className="left-panel">
           <TVList /> 
         </div>
-
+        
         <div className="right-panel">
           <WatchlistPanel /> 
         </div>
