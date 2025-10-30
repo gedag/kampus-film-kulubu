@@ -2,7 +2,7 @@
 
 Bu proje, Süleyman Demirel Üniversitesi Film Kulübü için geliştirilmiş, TVMaze API'sini kullanarak dizi arama, filtreleme ve gösterim listesi oluşturma uygulamasıdır.
 
-[cite_start]Proje, React temelleri ödevinde [cite: 1-46] belirtilen tüm gereksinimleri karşılamak üzere oluşturulmuştur.
+Proje, React temelleri ödevinde belirtilen tüm gereksinimleri karşılamak üzere oluşturulmuştur.
 
 **Canlı Demo Linki (Vercel):**
 [https://kampus-film-kulubu-atps.vercel.app](https://kampus-film-kulubu-atps.vercel.app)
@@ -14,17 +14,35 @@ Bu proje, Süleyman Demirel Üniversitesi Film Kulübü için geliştirilmiş, T
 * **`Axios`**: Tüm API (TVMaze) istekleri `axios` kullanılarak yapılmıştır.
 * **`useEffect`**: Anasayfada (`Home`) varsayılan veri çekme ve detay sayfasında (`ShowDetail`) veri çekme işlemleri için kullanılmıştır.
 * **`useReducer`**: Tüm global state (sorgu, filtreler, watchlist, sayfalama) `useReducer` ve `Context API` aracılığıyla yönetilmiştir.
-* [cite_start]**`Composition` (Bileşen Yapısı)** [cite: 10-19]: Proje, dokümanda istenen tüm bileşenlere ayrılmıştır.
+* **`Composition` (Bileşen Yapısı)**: Proje, dokümanda istenen tüm bileşenlere ayrılmıştır:
+    * `Home` (Anasayfa)
+    * `ShowDetail` (Detay Sayfası)
+    * `SearchBox` (Arama)
+    * `Filters` (Filtreleme)
+    * `TVList` & `TVCard` (Listeleme ve Kart)
+    * `WatchlistPanel` (Gösterim Listesi)
+    * `Pagination` (Sayfalama)
+    * `Footer` (Geliştirici bilgisi)
 * **`Conditional Rendering`**: `TVList` bileşeni içinde "Yükleniyor", "Hata Oluştu" ve "Sonuç Bulunamadı" durumları ele alınmıştır.
-* [cite_start]**`Pagination`** [cite: 21, 36-39]: Uzun listeler her sayfada 6 dizi olacak şekilde sayfalanmıştır.
+* **`Pagination`**: Uzun listeler her sayfada 6 dizi olacak şekilde sayfalanmış ve "İlk, Geri, İleri, Son" navigasyonu eklenmiştir.
 
 ---
 
 ## 2. Uygulama Akışı ve Şartlar
 
-[cite_start]Proje, ödevdeki [cite: 29-46] tüm akış şartlarını sağlamaktadır:
+Proje, ödevdeki tüm akış şartlarını sağlamaktadır:
 
 1.  **Varsayılan Arama:** Uygulama açıldığında varsayılan olarak "friends" sorgusuyla başlar.
-2.  **Detay Sayfası (Kritik Şart):** `ShowDetail` sayfası, `Promise.all` kullanarak **iki ayrı API isteği** atar:
+2.  **Filtreler:** Kullanıcı "Tür, Dil, Min Puan" kriterlerine göre istemci tarafında filtreleme yapabilir.
+3.  **Gösterim Listesi:** Kullanıcı "Kısa Listeye Ekle" butonuyla sağ paneldeki listeye (`WatchlistPanel`) dizi ekleyebilir. Bu liste `useReducer` (`ADD_WATCHLIST`, `REMOVE_WATCHLIST`) ile yönetilir.
+4.  **Detay Sayfası (Kritik Şart):** "Detay" butonuna basıldığında, `ShowDetail` sayfası açılır. Bu sayfa, `Promise.all` kullanarak **iki ayrı API isteği** atar:
     * Dizi detayları (`.../shows/:id`)
-    * [cite_start]Bölüm listesi (`.../shows/:id/episodes`) [cite: 28, 41-42]
+    * Bölüm listesi (`.../shows/:id/episodes`)
+
+---
+
+## 3. Kullanılan API Endpointleri (TVMaze)
+
+* **Arama:** `https://api.tvkyiaze.com/search/shows?q=<query>`
+* **Detay:** `https://api.tvmaze.com/shows/:id`
+* **Bölümler:** `https://api.tvmaze.com/shows/:id/episodes`
