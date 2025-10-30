@@ -5,7 +5,7 @@ Bu proje, Süleyman Demirel Üniversitesi Film Kulübü için geliştirilmiş, T
 [cite_start]Proje, React temelleri ödevinde [cite: 1-46] belirtilen tüm gereksinimleri karşılamak üzere oluşturulmuştur.
 
 **Canlı Demo Linki (Vercel):**
-`[Vercel'den alınacak link buraya eklenecek]` 
+[https://kampus-film-kulubu-atps.vercel.app](https://kampus-film-kulubu-atps.vercel.app)
 
 ---
 
